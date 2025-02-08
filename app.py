@@ -77,12 +77,12 @@ if pickup_type == "Address" and pickup_address:
     else:
         valid_pickup, distance = is_within_50_miles(pickup_latitude, pickup_longitude)
         if not valid_pickup:
-            st.error(f"Pickup location is {distance:.2f} miles away from New York City but must be within 50 miles to calculate fare.")
+            st.error(f"Pickup location is {distance:.2f} miles away from New York City. Must be within 50 miles to calculate fare.")
 
 elif pickup_type == "Coordinates" and pickup_latitude and pickup_longitude:
     valid_pickup, distance = is_within_50_miles(pickup_latitude, pickup_longitude)
     if not valid_pickup:
-        st.error(f"Pickup coordinates are {distance:.2f} miles away from New York City but must be within 50 miles to calculate fare.")
+        st.error(f"Pickup coordinates are {distance:.2f} miles away from New York City. Must be within 50 miles to calculate fare.")
 else:
     st.error("Please provide either an address or coordinates for pickup location.")
 
@@ -93,12 +93,12 @@ if dropoff_type == "Address" and dropoff_address:
     else:
         valid_dropoff, distance = is_within_50_miles(dropoff_latitude, dropoff_longitude)
         if not valid_dropoff:
-            st.error(f"Dropoff location is {distance:.2f} miles away from New York City but must be within 50 miles to calculate fare.")
+            st.error(f"Dropoff location is {distance:.2f} miles away from New York City. Must be within 50 miles to calculate fare.")
 
 elif dropoff_type == "Coordinates" and dropoff_latitude and dropoff_longitude:
     valid_dropoff, distance = is_within_50_miles(dropoff_latitude, dropoff_longitude)
     if not valid_dropoff:
-        st.error(f"Dropoff coordinates are {distance:.2f} miles away from New York City but must be within 50 miles to calculate fare.")
+        st.error(f"Dropoff coordinates are {distance:.2f} miles away from New York City. Must be within 50 miles to calculate fare.")
 else:
     st.error("Please provide either an address or coordinates for dropoff location.")
 
