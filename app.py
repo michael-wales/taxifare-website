@@ -60,6 +60,9 @@ def geocode_with_retry(address, retries=3):
 
 if pickup_type == "Address" and pickup_address:
     pickup_latitude, pickup_longitude = geocode_with_retry(pickup_address)
+    if pickup_latitude is None or pickup_longitude is None:
+        st.error("Unable to geocode pickup address.")
+
 elif pickup_type == "Coordinates" and pickup_latitude and pickup_longitude:
     pass  # Use the provided coordinates directly
 else:
@@ -67,12 +70,15 @@ else:
 
 if dropoff_type == "Address" and dropoff_address:
     dropoff_latitude, dropoff_longitude = geocode_with_retry(dropoff_address)
+    if dropoff_latitude is None or dropoff_longitude is None:
+        st.error("Unable to geocode dropoff address.")
+
 elif dropoff_type == "Coordinates" and dropoff_latitude and dropoff_longitude:
     pass  # Use the provided coordinates directly
 else:
     st.error("Please provide either an address or coordinates for dropoff location.")
 
-passenger_count = st.number_input('How many passengers?', min_value=1, max_value=8, value='min')
+passenger_count = st.number_input('How many passengers?', min_value=1, max_value=8, value=1)
 
 url = 'https://taxifare-805490564375.europe-west1.run.app/predict'
 
@@ -87,9 +93,8 @@ params =  {
 
 response = requests.get(url, params=params).json()
 
-st.markdown(f'''
-#### **Predicted fare:** ${round(response['fare'], 2)}
-''')
+if 'fare' in response:
+    st.markdown(f'#### **Predicted fare:** ${round(response["fare"], 2)}')
 
 if pickup_latitude is not None and dropoff_latitude is not None:
     map_html = create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
