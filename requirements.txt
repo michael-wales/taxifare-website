@@ -1,5 +1,5 @@
-folium
-geopy.geocoders
-requests
 streamlit
+folium
+geopy
 time
+requests

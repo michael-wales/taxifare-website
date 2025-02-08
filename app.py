@@ -1,7 +1,6 @@
 import streamlit as st
 import folium
-from geopy.geocoders import Nominatim
-from streamlit.components.v1 import html
+import geopy
 import time
 import requests
 
@@ -32,7 +31,7 @@ else:
     dropoff_latitude = st.number_input("Enter dropoff latitude", min_value=-40.0, max_value=41.0, value=None)
     dropoff_longitude = st.number_input("Enter dropoff longitude", min_value=-75.0, max_value=-73.0, value=None)
 
-geolocator = Nominatim(user_agent="taxifare-map-app")
+geolocator = geopy.geocoders.Nominatim(user_agent="taxifare-map-app")
 
 def create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
 
@@ -96,6 +95,6 @@ st.markdown(f'''
 
 if pickup_latitude is not None and dropoff_latitude is not None:
     map_html = create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
-    html(map_html, height=500)
+    st.components.v1.html(map_html, height=500)
 else:
     st.error("Both pickup and dropoff locations need to be provided.")
