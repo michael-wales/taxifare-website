@@ -1,7 +1,6 @@
 import streamlit as st
 import folium
 import geopy
-import time
 import requests
 
 st.title("NY taxi fare predictor")
@@ -45,8 +44,8 @@ def create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_long
     # Return the map HTML to embed in Streamlit
     return m._repr_html_()
 
-# Geocode the addresses with retries in case of failure with delay for server
-def geocode_with_retry(address, retries=3, delay=2):
+# Geocode the addresses with retries in case of failure
+def geocode_with_retry(address, retries=3):
     for _ in range(retries):
         lat, lon = None, None
         try:
@@ -57,7 +56,6 @@ def geocode_with_retry(address, retries=3, delay=2):
             st.error(f"Error geocoding address: {e}")
         if lat is not None and lon is not None:
             return lat, lon
-        time.sleep(delay)
     return None, None
 
 if pickup_type == "Address" and pickup_address:
