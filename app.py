@@ -1,6 +1,7 @@
 import streamlit as st
 import folium
 import geopy
+from geopy.distance import geodesic
 import requests
 
 # New York City's coordinates
@@ -42,7 +43,7 @@ geolocator = geopy.geocoders.Nominatim(user_agent="taxifare-map-app")
 def is_within_50_miles(lat, lon):
     if lat is not None and lon is not None:
         location_coords = (lat, lon)
-        distance = geopy.distance.geodesic(NYC_COORDS, location_coords).miles
+        distance = geodesic(NYC_COORDS, location_coords).miles
         if distance > 50:
             return False, distance
         return True, distance
