@@ -16,8 +16,8 @@ if pickup_type == "Address":
     pickup_longitude = None
 else:
     pickup_address = None
-    pickup_latitude = st.number_input("Enter pickup latitude", min_value=-40.0, max_value=41.0, value=None)
-    pickup_longitude = st.number_input("Enter pickup longitude", min_value=-75.0, max_value=-73.0, value=None)
+    pickup_latitude = st.number_input("Enter pickup latitude", value=None)
+    pickup_longitude = st.number_input("Enter pickup longitude", value=None)
 
 dropoff_type = st.radio("Choose dropoff input method:", ("Address", "Coordinates"))
 
@@ -27,8 +27,8 @@ if dropoff_type == "Address":
     dropoff_longitude = None
 else:
     dropoff_address = None
-    dropoff_latitude = st.number_input("Enter dropoff latitude", min_value=-40.0, max_value=41.0, value=None)
-    dropoff_longitude = st.number_input("Enter dropoff longitude", min_value=-75.0, max_value=-73.0, value=None)
+    dropoff_latitude = st.number_input("Enter dropoff latitude", value=None)
+    dropoff_longitude = st.number_input("Enter dropoff longitude", value=None)
 
 geolocator = geopy.geocoders.Nominatim(user_agent="taxifare-map-app")
 
