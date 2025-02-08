@@ -1,3 +1,4 @@
+import folium
 import requests
 import streamlit as st
 
@@ -32,3 +33,15 @@ st.markdown(f'''
 #### **Predicted fare:**
 #### ${round(response['fare'], 2)}
 ''')
+
+def create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude):
+    m = folium.Map(location=[(pickup_latitude + dropoff_latitude) / 2, (pickup_longitude + dropoff_longitude) / 2], zoom_start=6)
+
+    folium.Marker([pickup_latitude, pickup_longitude], popup="Pickup", icon=folium.Icon(color='blue')).add_to(m)
+    folium.Marker([dropoff_latitude, dropoff_longitude], popup="Dropoff Point", icon=folium.Icon(color='red')).add_to(m)
+    m.fit_bounds([[pickup_latitude, pickup_longitude], [dropoff_latitude, dropoff_longitude]])
+    return m._repr_html_()
+
+map_html = create_map(pickup_latitude, pickup_longitude, dropoff_latitude, dropoff_longitude)
+
+st.components.v1.html(map_html, height=500)
