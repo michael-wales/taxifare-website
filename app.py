@@ -1,6 +1,8 @@
 import requests
 import streamlit as st
 
+ors_key = st.secrets["ors_key"]
+
 st.markdown('''
 # NY taxi fare predictor
 ''')
