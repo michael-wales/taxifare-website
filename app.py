@@ -1,7 +1,7 @@
 import streamlit as st
 import folium
-import geopy
 from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
 import requests
 
 # New York City's coordinates
@@ -37,7 +37,7 @@ else:
     dropoff_latitude = st.number_input("Enter dropoff latitude", value=None)
     dropoff_longitude = st.number_input("Enter dropoff longitude", value=None)
 
-geolocator = geopy.geocoders.Nominatim(user_agent="taxifare-map-app")
+geolocator = Nominatim(user_agent="taxifare-map-app")
 
 # Function to calculate distance from NYC
 def is_within_50_miles(lat, lon):
