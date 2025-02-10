@@ -1,4 +1,5 @@
 streamlit
 folium
-geopy
+geopy.distance
+geopy.geocoders
 requests
